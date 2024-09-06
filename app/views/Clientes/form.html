@@ -1,0 +1,69 @@
+#{extends 'main.html' /}
+#{if cliente}
+	#{set title:'Edição de Cliente' /}
+#{/if}
+#{else}
+	#{set title:'Cadastro de Cliente' /}
+#{/else}
+<div class="w-100 h-100 d-flex">
+	<form action="@{Clientes.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
+		
+		<input type="hidden" name="c.id" value="${cliente?.id}" />
+		
+		<h1 class="text-center mb-4">Dados do Cliente</h1>
+		<div class="row g-3 mb-3">
+			<div class="col-6">
+				<label for="floatingNome" class="form-label">Nome</label>
+				<input type="text" name="c.nome" class="form-control" id="floatingNome" value="${cliente?.nome}" placeholder="Digite aqui o nome" required="required">
+			</div>
+			<div class="col-6">
+				<label for="floatingSobrenome" class="form-label">Sobrenome</label>
+				<input type="text" name="c.sobrenome" class="form-control" id="floatingSobrenome" value="${cliente?.sobrenome}" placeholder="Digite aqui o sobrenome" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-2">
+			<div class="col-4">
+				<label for="floatingCPF" class="form-label">CPF</label>
+				<input type="text" name="c.cpf" class="form-control" id="floatingCPF" value="${cliente?.cpf}" placeholder="Insira aqui o cpf" required="required">
+			</div>
+			<div class="col-4">
+				<label for="floatingContato" class="form-label">Contato</label>
+				<input type="text" name="c.contato" class="form-control" id="floatingContato" value="${cliente?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
+			</div>
+			<div class="col-4">
+				<label for="floatingData" class="form-label">Data de Nascimento</label>
+				<input type="date" name="c.dataNascimento" class="form-control" id="floatingData" value="${novaData}" required="required">
+			</div>
+		</div>
+
+		<select name="c.turno" class="form-select mb-3 py-2">
+			<option>Selecione o turno</option>
+			<option value="Manhã" ${"Manhã".equals(cliente?.turno) ? "selected" : ""}>Manhã</option>
+			<option value="Tarde" ${"Tarde".equals(cliente?.turno) ? "selected" : ""}>Tarde</option>
+			<option value="Noite" ${"Noite".equals(cliente?.turno) ? "selected" : ""}>Noite</option>
+		</select>
+
+		<div class="form-check mb-2">
+			<input type="radio" id="flexRadioDefault1" name="c.acompanhamentoPersonal" value="Sim" class="form-check-input" required="required"  ${"Sim".equals(cliente?.acompanhamentoPersonal) ? "checked" : ""}>
+			<label for="flexRadioDefault1" class="form-check-label">Possui Acompanhamento</label>
+		</div>
+		<div class="form-check mb-3">
+			<input type="radio" id="não" name="c.acompanhamentoPersonal" value="Não" class="form-check-input" ${"Não".equals(cliente?.acompanhamentoPersonal) ? "checked" : ""}>
+			<label for="não" class="form-check-label">Não possui Acompanhamento</label>
+		</div>
+		
+		<div class="row g-3 mb-3">
+			<div class="col-6">
+				<label for="floatingAcademia" class="form-label">Nome da academia</label>
+				<input type="text" name="c.nomeAcademia" class="form-control" id="floatingAcademia" value="${cliente?.nomeAcademia}" placeholder="Digite o nome da academia" required="required">
+			</div>
+			<div class="col-6">
+				<label for="floatingPersonal" class="form-label">Nome do personal:</label>
+				<input type="text" name="c.nomePersonal" class="form-control" id="floatingPersonal" value="${cliente?.nomePersonal}" placeholder="Digite o nome do personal" required="required">
+			</div>
+		</div>
+		
+		<input type="submit" value="Salvar" class="btn btn-primary w-100 py-2 mb-2 rounded-4">
+		<a href="@{Clientes.listar}" class="btn btn-outline-dark w-100 py-2 rounded-4">Ir para a listagem</a>
+	</form>
+</div>
