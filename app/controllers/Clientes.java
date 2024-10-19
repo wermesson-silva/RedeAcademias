@@ -2,13 +2,19 @@ package controllers;
 
 import java.util.List;
 
+import models.Academia;
 import models.Cliente;
+import models.Personal;
 import play.mvc.Controller;
 
 public class Clientes extends Controller {
 	
 	public static void form() {
-		render();
+		
+		List <Academia> academias = Academia.findAll();
+		List <Personal> personais = Personal.findAll();
+
+		render(academias, personais);
 	}
 	
 	public static void inicio() {

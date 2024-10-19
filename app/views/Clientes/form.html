@@ -54,13 +54,20 @@
 		
 		<div class="row g-3 mb-3">
 			<div class="col-6">
-				<label for="floatingAcademia" class="form-label">Nome da academia</label>
-				<input type="text" name="c.nomeAcademia" class="form-control" id="floatingAcademia" value="${cliente?.nomeAcademia}" placeholder="Digite o nome da academia" required="required">
+				<label class="form-label">Selecione a Academia:</label>
+				<select class="form-select" name="c.academia.id">
+					#{list items:academias, as:'a'}
+				  		<option value="${a.id}">${a}</option>
+				  	#{/list}
+				</select>
 			</div>
 			<div class="col-6">
-				<label for="floatingPersonal" class="form-label">Nome do personal:</label>
-				<input type="text" name="c.nomePersonal" class="form-control" id="floatingPersonal" value="${cliente?.nomePersonal}" placeholder="Digite o nome do personal" required="required">
-				<label   for="floatingPersonal" id="mensagemPersonal" style="display: none; color: red;">Campo bloqueado!</label>
+				<label class="form-label">Selecione o Personal:</label>
+				<select class="form-select" name="c.personal.id">
+					#{list items:personais, as:'p'}
+				  		<option value="${p.id}">${p}</option>
+				  	#{/list}
+				</select>
 			</div>
 		</div>
 		

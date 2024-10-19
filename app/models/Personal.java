@@ -14,6 +14,13 @@ public class Personal extends Model {
 	public String nome; 
 	public String sobrenome;
 	public String contato; 
-	public Date dataNascimento;
+	public String dataNascimento;
+	public String cpf; 
+	public float salario; 
 	
+	@Override
+	public String toString() {
+		return nome + " " + sobrenome ;  
+	}
+
 }

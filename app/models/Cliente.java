@@ -21,4 +21,7 @@ public class Cliente extends Model{
 	@ManyToOne
 	public Academia academia ;
 	
+	@ManyToOne
+	public Personal personal;
+	
 }

@@ -45,8 +45,8 @@
 					<td>${c.dataNascimento.format('dd/MM/yyyy')}</td>
 					<td>${c.turno}</td>
 					<td>${c.acompanhamentoPersonal}</td>
-					<td>${c.nomeAcademia}</td>
-					<td>${c.nomePersonal}</td>
+					<td>${c.academia?.nome}</td>
+					<td>${c.personal?.nome}</td>
 					<td>
 						<a href="@{clientes.remover(c.id)}" class="text-dark text-decoration-none">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
