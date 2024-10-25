@@ -1,0 +1,42 @@
+#{extends 'main.html' /}
+#{if cliente}
+	#{set title:'Edição de Academia' /}
+#{/if}
+#{else}
+	#{set title:'Cadastro de Academia' /}
+#{/else}
+<div class="w-100 h-100 d-flex">
+	<form action="@{Academias.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
+		
+		<input type="hidden" name="a.id" value="${academia?.id}" />
+		
+		<h1 class="text-center mb-4">Dados da Academia</h1>
+		<div class="row g-3 mb-2">
+			<div class="col">
+				<label for="floatingNome" class="form-label">Nome</label>
+				<input type="text" name="a.nome" class="form-control" id="floatingNome" value="${academia?.nome}" placeholder="Digite aqui o nome" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-2">
+			<div class="col">
+				<label for="floatingEndereco" class="form-label">Endereço</label>
+				<input type="text" name="a.endereco" class="form-control" id="floatingEndereco" value="${academia?.endereco}" placeholder="Digite aqui o endereço" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-2">
+			<div class="col">
+				<label for="floatingCPF" class="form-label">CNPJ</label>
+				<input type="text" name="a.CNPJ" class="form-control" id="floatingCNPJ" value="${academia?.CNPJ}" placeholder="Insira aqui o CNPJ" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-3">
+			<div class="col">
+				<label for="floatingContato" class="form-label">Contato</label>
+				<input type="text" name="a.contato" class="form-control" id="floatingContato" value="${academia?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
+			</div>
+		</div>
+		
+		<input type="submit" value="Salvar" class="btn btn-primary w-100 py-2 mb-2 rounded-4">
+		<a href="@{Academias.listar}" class="btn btn-outline-dark w-100 py-2 rounded-4">Ir para a listagem</a>
+	</form>
+</div>

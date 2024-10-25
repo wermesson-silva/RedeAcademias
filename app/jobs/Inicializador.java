@@ -15,21 +15,21 @@ public class Inicializador extends Job {
 			Academia a1 = new Academia();
 			a1.nome = "PowerFit";
 			a1.endereco = "João Câmera";
-			a1.Contato = "84 98181-2212";
+			a1.contato = "84 98181-2212";
 			a1.CNPJ = "21232323";
 			a1.save();
 			
 			Academia a2 = new Academia();
 			a2.nome = "EducFit";
 			a2.endereco = "Ceara Mirin";
-			a2.Contato = "84 94183-2562";
+			a2.contato = "84 94183-2562";
 			a2.CNPJ = "21867865";
 			a2.save();
 			
 			Academia a3 = new Academia();
 			a3.nome = "Smart Fit";
 			a3.endereco = "João Câmera";
-			a3.Contato = "84 99583-7612";
+			a3.contato = "84 99583-7612";
 			a3.CNPJ = "2123421";
 			a3.save();
 		}

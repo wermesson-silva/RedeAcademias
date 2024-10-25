@@ -32,7 +32,7 @@ public class Academias extends Controller {
 		if(termo == null) {
 			academias = Academia.findAll();			
 		} else {
-			academias =  Academia.find("lower(nome) like ?1 or cpf like ?1 or lower(nomeAcademia) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			academias =  Academia.find("lower(nome) like ?1 or lower(endereco) like ?1 or contato like ?1", "%" + termo.toLowerCase() + "%").fetch();
 		}
 		render(academias, termo);
 	}
@@ -48,7 +48,7 @@ public class Academias extends Controller {
 		
 		Academia academia = Academia.findById(id);
 		
-		renderTemplate("Clientes/form.html", academia);
+		renderTemplate("Academias/form.html", academia);
 	}
 	
 }

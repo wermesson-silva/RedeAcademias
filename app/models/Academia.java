@@ -11,7 +11,7 @@ public class Academia extends Model{
 	public String nome; 
 	public String endereco; 
 	public String CNPJ;
-	public String Contato;
+	public String contato;
 	
 	@Override
 	public String toString() {
