@@ -57,7 +57,7 @@
 				<label class="form-label">Selecione a Academia:</label>
 				<select class="form-select" name="c.academia.id">
 					#{list items:academias, as:'a'}
-				  		<option value="${a.id}">${a}</option>
+				  		<option value="${a.id}" ${a.id.equals(cliente?.academia?.id) ? "selected" : ""}>${a}</option>
 				  	#{/list}
 				</select>
 			</div>

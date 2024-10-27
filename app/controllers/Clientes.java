@@ -40,7 +40,7 @@ public class Clientes extends Controller {
 		if(termo == null) {
 			clientes = Cliente.findAll();			
 		} else {
-			clientes =  Cliente.find("lower(nome) like ?1 or cpf like ?1 or lower(nomeAcademia) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			clientes =  Cliente.find("lower(nome) like ?1 or cpf like ?1 or lower(academia.nome) like ?1", "%" + termo.toLowerCase() + "%").fetch();
 		}
 		render(clientes, termo);
 	}
@@ -54,13 +54,16 @@ public class Clientes extends Controller {
 	
 	public static void editar(Long id) {
 		
+		List <Academia> academias = Academia.findAll();
+		List <Personal> personais = Personal.findAll();
+		
 		Cliente cliente = Cliente.findById(id);
 		
 		String data = cliente.dataNascimento + "";
 		String vetor[] = data.split(" ");
 		String novaData = vetor[0];
 		
-		renderTemplate("Clientes/form.html", cliente, novaData);
+		renderTemplate("Clientes/form.html", cliente, novaData, academias, personais);
 	}
 	
 }
