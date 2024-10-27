@@ -1,0 +1,48 @@
+#{extends 'main.html' /}
+#{if cliente}
+	#{set title:'Edição de Personal' /}
+#{/if}
+#{else}
+	#{set title:'Cadastro de Personal' /}
+#{/else}
+<div class="w-100 h-100 d-flex">
+	<form action="@{Personais.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
+		
+		<input type="hidden" name="p.id" value="${personal?.id}" />
+		
+		<h1 class="text-center mb-4">Dados do Personal</h1>
+		<div class="row g-3 mb-2">
+			<div class="col-6">
+				<label for="floatingNome" class="form-label">Nome</label>
+				<input type="text" name="p.nome" class="form-control" id="floatingNome" value="${personal?.nome}" placeholder="Digite aqui o nome" required="required">
+			</div>
+			<div class="col-6">
+				<label for="floatingSobrenome" class="form-label">Sobrenome</label>
+				<input type="text" name="p.sobrenome" class="form-control" id="floatingSobrenome" value="${personal?.sobrenome}" placeholder="Digite aqui o sobrenome" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-2">
+			<div class="col-4">
+				<label for="floatingCPF" class="form-label">CPF</label>
+				<input type="text" name="p.cpf" class="form-control" id="floatingCPF" value="${personal?.cpf}" placeholder="Insira aqui o cpf" required="required">
+			</div>
+			<div class="col-4">
+				<label for="floatingContato" class="form-label">Contato</label>
+				<input type="text" name="p.contato" class="form-control" id="floatingContato" value="${personal?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
+			</div>
+			<div class="col-4">
+				<label for="floatingData" class="form-label">Data de Nascimento</label>
+				<input type="date" name="p.dataNascimento" class="form-control" id="floatingData" value="${personal?.dataNascimento}" required="required">
+			</div>
+		</div>
+		<div class="row g-3 mb-3">
+			<div class="col-6">
+				<label for="floatingSalario" class="form-label">Salario</label>
+				<input type="text" name="p.salario" class="form-control" id="floatingSalario" value="${personal?.salario}" placeholder="Digite o salário em R$" required="required">
+			</div>
+		</div>
+		
+		<input type="submit" value="Salvar" class="btn btn-primary w-100 py-2 mb-2 rounded-4">
+		<a href="@{Personais.listar}" class="btn btn-outline-dark w-100 py-2 rounded-4">Ir para a listagem</a>
+	</form>
+</div>
