@@ -59,11 +59,7 @@ public class Clientes extends Controller {
 		
 		Cliente cliente = Cliente.findById(id);
 		
-		String data = cliente.dataNascimento + "";
-		String vetor[] = data.split(" ");
-		String novaData = vetor[0];
-		
-		renderTemplate("Clientes/form.html", cliente, novaData, academias, personais);
+		renderTemplate("Clientes/form.html", cliente, academias, personais);
 	}
 	
 }

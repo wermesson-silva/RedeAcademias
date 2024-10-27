@@ -32,7 +32,7 @@
 			</div>
 			<div class="col-4">
 				<label for="floatingData" class="form-label">Data de Nascimento</label>
-				<input type="date" name="c.dataNascimento" class="form-control" id="floatingData" value="${novaData}" required="required">
+				<input type="date" name="c.dataNascimento" class="form-control" id="floatingData" value="${cliente?.dataNascimento}" required="required">
 			</div>
 		</div>
 
@@ -65,7 +65,7 @@
 				<label class="form-label">Selecione o Personal:</label>
 				<select class="form-select" name="c.personal.id">
 					#{list items:personais, as:'p'}
-				  		<option value="${p.id}">${p}</option>
+				  		<option value="${p.id}" ${p.id.equals(cliente?.personal?.id) ? "selected" : ""}>${p}</option>
 				  	#{/list}
 				</select>
 			</div>
