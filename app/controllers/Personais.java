@@ -2,8 +2,6 @@ package controllers;
 
 import java.util.List;
 
-import models.Academia;
-import models.Cliente;
 import models.Personal;
 import play.mvc.Controller;
 
@@ -47,7 +45,7 @@ public class Personais extends Controller {
 	
 	public static void editar(Long id) {
 		
-		Cliente personal = Personal.findById(id);
+		Personal personal = Personal.findById(id);
 	
 		renderTemplate("Personais/form.html", personal);
 	}
