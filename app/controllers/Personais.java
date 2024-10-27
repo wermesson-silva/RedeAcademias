@@ -31,7 +31,7 @@ public class Personais extends Controller {
 		if(termo == null) {
 			personais = Personal.findAll();			
 		} else {
-			personais =  Personal.find("lower(nome) like ?1 or cpf like ?1 or lower(academia.nome) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			personais =  Personal.find("lower(nome) like ?1 or salario like ?1 or lower(academia.nome) like ?1", "%" + termo.toLowerCase() + "%").fetch();
 		}
 		render(personais, termo);
 	}
