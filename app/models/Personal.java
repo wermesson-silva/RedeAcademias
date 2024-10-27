@@ -3,6 +3,8 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -14,7 +16,10 @@ public class Personal extends Model {
 	public String nome; 
 	public String sobrenome;
 	public String contato; 
-	public String dataNascimento;
+	
+	@Temporal(TemporalType.DATE)
+	public Date dataNascimento;
+	
 	public String cpf; 
 	public float salario; 
 	

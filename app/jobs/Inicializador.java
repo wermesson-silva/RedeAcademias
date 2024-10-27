@@ -1,5 +1,7 @@
 package jobs;
 
+import java.text.SimpleDateFormat;
+
 import models.Academia;
 import models.Personal;
 import play.jobs.Job;
@@ -35,12 +37,15 @@ public class Inicializador extends Job {
 		}
 		
 		if(Personal.count() == 0) {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			
 			Personal p1 = new Personal(); 
 			p1.nome = "Cesar";
 			p1.sobrenome  = "Gomes";
 			p1.contato = "84 9 8642 1245";
 			p1.cpf = "458.132.154-65";
-			p1.dataNascimento = "21/02/1998";
+			p1.dataNascimento = sdf.parse("21/02/1998");
 			p1.salario = 2546.00f;
 			p1.save();
 		}
