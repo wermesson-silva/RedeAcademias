@@ -17,10 +17,6 @@ public class Clientes extends Controller {
 		render(academias, personais);
 	}
 	
-	public static void inicio() {
-		render();
-	}
-	
 	public static void salvar(Cliente c) {
 		
 		String mensagem = "Cliente cadastrado com sucesso!";

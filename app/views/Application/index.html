@@ -1,4 +1,46 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Início' /}
 
-#{welcome /}
+
+	<div class="row w-75 h-100 m-auto rounded-5 shadow-lg">
+	    <div class="col-6 h-100 rounded-start-5 d-flex align-items-center" style="background: #0D6EFD;">
+	    	<div class="row text-light">
+		        <h1 class="h2 text-center">Bem vindo ao Fique Fino!</h1>
+		        <p class="text-center">Aqui você poderá realizar o gerenciamento das suas academias</p>
+		        <div class="col-5 m-auto">
+					<div class="dropdown">
+						<button class="btn btn-outline-light w-100 dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Gerenciar</button>
+						<ul class="dropdown-menu w-100 text-center">
+							<li><a class="dropdown-item" href="@{clientes.listar}">Cliente</a></li>
+							<li><a class="dropdown-item" href="@{personais.listar}">Personal</a></li>
+							<li><a class="dropdown-item" href="@{academias.listar}">Academia</a></li>
+						</ul>
+					</div>
+		        </div>
+	    	</div>
+	    </div>
+	    <div class="col-6 h-100 rounded-end-5 d-flex align-items-center">
+	    	<div class="row">
+	    	
+	    		<div class="col-12 m-auto text-center">
+				    <img src="@{'public/images/academia.png'}" width="90px" height="90px">	    	
+		        </div>
+	    		
+		        <h1 class="h2 text-center text-primary">Vamos Começar!</h1>
+		        <p class="text-center">Selecione uma das opções abaixo</p>
+
+				<div class="col-8 m-auto">
+					<div class="dropdown">
+						<button class="btn btn-dark w-100 dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Cadastrar</button>
+						<ul class="dropdown-menu w-100 text-center">
+							<li><a class="dropdown-item" href="@{clientes.form}">Cliente</a></li>
+							<li><a class="dropdown-item" href="@{personais.form}">Personal</a></li>
+							<li><a class="dropdown-item" href="@{academias.form}">Academia</a></li>
+						</ul>
+					</div>
+		        </div>
+	    	</div>
+	    </div>
+	</div>
