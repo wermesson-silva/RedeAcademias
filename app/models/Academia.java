@@ -1,6 +1,9 @@
 package models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 
 import groovy.transform.ToString;
 import play.db.jpa.Model;
@@ -12,6 +15,9 @@ public class Academia extends Model{
 	public String endereco; 
 	public String CNPJ;
 	public String contato;
+	
+	@ManyToMany
+	public List<Personal> personais;
 	
 	@Override
 	public String toString() {

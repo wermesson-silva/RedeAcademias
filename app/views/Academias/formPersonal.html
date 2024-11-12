@@ -1,0 +1,64 @@
+#{extends 'main.html' /}
+#{set title:'Cadastro de personais na academia' /}
+
+<div class=" h-100 m-auto col-10" >
+	<h1 class="text-center my-4" >Personais disponíveis</h1>
+	
+	<table class="table mt-4 mb-4">
+		<thead class="table-light">
+			<tr>
+				<th>Nome</th>
+				<th>Contato</th>
+				<th>CPF</th>
+				<th>Ações</th>
+			</tr>
+		</thead>
+		<tbody>
+			#{list items: personais, as:'p'}
+				<tr>
+					<td>${p.nome}</td>
+					<td>${p.contato}</td>
+					<td>${p.cpf}</td>
+					<td class="text-center">
+						<a href="@{Academias.adicionarPersonal(p.id, academia.id)}" class="btn btn-primary btn-sm w-100">
+							Adicionar
+						</a>
+					</td>
+				</tr>
+			#{/list}
+			
+		</tbody>
+	</table>
+	
+	<h1 class="text-center my-4" >Personais contratados</h1>
+	
+	<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
+		#{list items:academia.personais, as:'per'}
+		  <div class="col">
+		    <div class="card h-100">
+		      <div class="card-body">
+		        <h5 class="card-title">${per.nome}</h5>
+		        <p class="card-text">Contato: ${per.contato}</p>
+		        <div class="card-footer">
+        			<a href="@{Academias.removerPersonal(academia.id, per.id)}" class="btn btn-dark w-100 rounded-4">Remover</a>
+      			</div>
+		      </div>
+		    </div>
+		  </div>
+		#{/list}
+	</div>
+		#{else}
+			
+			<ul class="list-group mb-4">
+			  <li class="list-group-item text-center">A academia não possui nenhum personal, escolha um na lista para ser adicionado</li>
+			</ul>
+		#{/else}
+	
+	<div class="row w-100 m-auto">
+		<div class="col">
+			<a href="@{Academias.listar}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Escolher outra academia</a>
+		</div>
+	</div>
+</div>
+
+
