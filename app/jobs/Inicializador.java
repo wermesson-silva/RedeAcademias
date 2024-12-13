@@ -3,6 +3,7 @@ package jobs;
 import java.text.SimpleDateFormat;
 
 import models.Academia;
+import models.Administrador;
 import models.Personal;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
@@ -12,6 +13,16 @@ public class Inicializador extends Job {
 	
 	@Override
 	public void doJob() throws Exception {
+		Administrador adm = null;
+		if(Administrador.count() == 0) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			adm  = new Administrador(); 
+			adm.nome = "João";
+			adm.sobrenome = "Silva"; 
+			adm.contato = "84 9 8756-3245";
+			adm.Cpf = "111.222.333-45";
+			adm.save();
+		}
 		
 		if (Academia.count() == 0) {
 			Academia a1 = new Academia();
@@ -19,6 +30,7 @@ public class Inicializador extends Job {
 			a1.endereco = "João Câmera";
 			a1.contato = "84 98181-2212";
 			a1.CNPJ = "21232323";
+			a1.adm = adm;
 			a1.save();
 			
 			Academia a2 = new Academia();
@@ -26,6 +38,7 @@ public class Inicializador extends Job {
 			a2.endereco = "Ceara Mirin";
 			a2.contato = "84 94183-2562";
 			a2.CNPJ = "21867865";
+			a2.adm = adm;
 			a2.save();
 			
 			Academia a3 = new Academia();
@@ -33,6 +46,7 @@ public class Inicializador extends Job {
 			a3.endereco = "João Câmera";
 			a3.contato = "84 99583-7612";
 			a3.CNPJ = "2123421";
+			a3.adm = adm;
 			a3.save();
 		}
 		
@@ -49,6 +63,8 @@ public class Inicializador extends Job {
 			p1.salario = 2546.00f;
 			p1.save();
 		}
+		
+		
 	}
 
 }

@@ -27,6 +27,7 @@
 				<th>Endereço</th>
 				<th>CNPJ</th>
 				<th>Contato</th>
+				<th>Administrador</th>
 				<th>Ações</th>
 			</tr>
 		</thead>
@@ -37,6 +38,7 @@
 					<td>${a.endereco}</td>
 					<td>${a.CNPJ}</td>
 					<td>${a.contato}</td>
+					<td>${a.adm}</td>
 					<td>
 						<a href="@{Academias.remover(a.id)}" class="text-dark text-decoration-none">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
