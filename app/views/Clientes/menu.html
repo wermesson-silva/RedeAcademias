@@ -2,10 +2,10 @@
 #{set title:'Listagem' /}
 
 <div class=" h-100 m-auto col-10" >
-	<h1 class="text-center my-4" >Bem vindo ${session['usuarioLogado']}</h1>
+	<h1 class="text-center my-4" >Bem vindo ${session['usuarioLogado']}!</h1>
 	
 	#{if clienteMenu.conta}
-	<h2>Seu cadastro</h2>
+	<h2>Dados Pessoais</h2>
 	
 	<table class="table mt-4 mb-4">
 		<thead class="table-light">
@@ -15,10 +15,6 @@
 				<th>CPF</th>
 				<th>Contato</th>
 				<th>Data de nascimento</th>
-				<th>Turno</th>
-				<th>Acompanhamento</th>
-				<th>Academia</th>
-				<th>Personal</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,6 +24,41 @@
 				<td>${clienteMenu.cpf}</td>
 				<td>${clienteMenu.contato}</td>
 				<td>${clienteMenu.dataNascimento?.format('dd/MM/yyyy')}</td>
+			</tr>
+		</tbody>
+	</table>
+	
+	<h2>${clienteMenu.academia?.nome}</h2>
+	
+	<table class="table mt-4 mb-4">
+		<thead class="table-light">
+			<tr>
+				<th>Endereço</th>
+				<th>Contato</th>
+				<th>CNPJ</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>${clienteMenu.academia?.endereco}</td>
+				<td>${clienteMenu.academia?.contato}</td>
+				<td>${clienteMenu.academia?.CNPJ}</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>Seu plano</h2>
+	
+	<table class="table mt-4 mb-4">
+		<thead class="table-light">
+			<tr>
+				<th>Turno</th>
+				<th>Acompanhamento</th>
+				<th>Academia</th>
+				<th>Personal</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
 				<td>${clienteMenu.turno}</td>
 				<td>${clienteMenu.acompanhamentoPersonal}</td>
 				<td>${clienteMenu.academia?.nome}</td>
