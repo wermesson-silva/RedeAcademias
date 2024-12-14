@@ -9,6 +9,7 @@
 	<form action="@{Clientes.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
 		
 		<input type="hidden" name="c.id" value="${cliente?.id}" />
+		<input type="hidden" name="c.conta.id" value="${idConta}" />
 		
 		<h1 class="text-center mb-4">Dados do Cliente</h1>
 		<div class="row g-3 mb-3">

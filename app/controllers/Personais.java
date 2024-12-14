@@ -4,7 +4,9 @@ import java.util.List;
 
 import models.Personal;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(Seguranca.class)
 public class Personais extends Controller {
 	
 	public static void form() {

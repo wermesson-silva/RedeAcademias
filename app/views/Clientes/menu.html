@@ -1,0 +1,52 @@
+#{extends 'main.html' /}
+#{set title:'Listagem' /}
+
+<div class=" h-100 m-auto col-10" >
+	<h1 class="text-center my-4" >Bem vindo ${session['usuarioLogado']}</h1>
+	
+	#{if clienteMenu.conta}
+	<h2>Seu cadastro</h2>
+	
+	<table class="table mt-4 mb-4">
+		<thead class="table-light">
+			<tr>
+				<th>Nome</th>
+				<th>Sobrenome</th>
+				<th>CPF</th>
+				<th>Contato</th>
+				<th>Data de nascimento</th>
+				<th>Turno</th>
+				<th>Acompanhamento</th>
+				<th>Academia</th>
+				<th>Personal</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>${clienteMenu.nome}</td>
+				<td>${clienteMenu.sobrenome}</td>
+				<td>${clienteMenu.cpf}</td>
+				<td>${clienteMenu.contato}</td>
+				<td>${clienteMenu.dataNascimento?.format('dd/MM/yyyy')}</td>
+				<td>${clienteMenu.turno}</td>
+				<td>${clienteMenu.acompanhamentoPersonal}</td>
+				<td>${clienteMenu.academia?.nome}</td>
+				<td>${clienteMenu.personal?.nome}</td>
+			</tr>
+		</tbody>
+	</table>
+	#{/if}
+	
+	<div class="row w-100 m-auto">
+		#{if !clienteMenu.conta}
+		<div class="col">
+			<a href="@{clientes.form(idConta)}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastre-se em uma academia</a>
+		</div>
+		#{/if}
+		<div class="col">
+			<a href="@{Logins.sair}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Sair</a>
+		</div>
+	</div>
+</div>
+
+
