@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 
 import controllers.Clientes;
+import controllers.Personais;
 import play.db.jpa.Model;
 
 @Entity
@@ -39,7 +40,13 @@ public class Login extends Model{
 				Clientes.menu(c.id, idConta);
 			}
 		} else if(tipo == Status.PERSONAL) {
+			Personal p = Personal.find("conta.id = ?1", idConta).first();
 			
+			if(p == null) {
+				Personais.menu(null, idConta);
+			} else {
+				Personais.menu(p.id, idConta);
+			}
 		}
 	}
 }

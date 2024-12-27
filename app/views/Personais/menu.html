@@ -1,0 +1,77 @@
+#{extends 'main.html' /}
+#{set title:'Menu' /}
+
+<div class=" h-100 h-100 d-flex" >
+
+	<div class="p-4 m-auto rounded-5 col-12 col-sm-10">
+		<h1 class="text-center mb-5" >Bem vindo ${session['usuarioLogado']}!</h1>
+		
+		#{if personalMenu?.conta}
+		<h2>Dados Pessoais</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>Contato</th>
+					<th>Data de nascimento</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-th="Nome">${personalMenu.nome}</td>
+					<td data-th="Sobrenome">${personalMenu.sobrenome}</td>
+					<td data-th="Contato">${personalMenu.contato}</td>
+					<td data-th="Data de Nascimento">${personalMenu.dataNascimento?.format('dd/MM/yyyy')}</td>
+				</tr>
+			</tbody>
+		</table>
+				
+		#{/if}
+		<div class="row m-auto">
+			<ul class="list-group mb-3 col-12 col-sm-6">
+				<li class="list-group-item active bg-dark border-dark" aria-current="true">
+					<h3 class="text-center">Academias disponíveis</h3>
+				</li>
+				#{list items: academiasMenu, as: 'a'}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						${a}
+						#{if personalMenu}<a href="#" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+					</li>
+				#{/list}
+			</ul>	
+			<ul class="list-group mb-3 col-12 col-sm-6">
+				<li class="list-group-item active bg-dark border-dark" aria-current="true">
+					<h3 class="text-center">Clientes disponíveis</h3>
+				</li>
+				#{list items: clientesMenu, as: 'c'}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						${c.nome}
+						#{if personalMenu && c.personal == null}<a href="#" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{else}
+							<a class="text-center text-success text-decoration-none">Possui personal</a>
+						#{/else}
+					</li>
+				#{/list}
+			</ul>
+		</div>
+		
+		<div class="row w-100 m-auto">
+			#{if !personalMenu?.conta}
+			<div class="col">
+				<a href="@{personais.form(idConta)}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastre-se como Personal</a>
+			</div>
+			#{/if}
+			#{else}
+			<div class="col">
+				<a href="#" class="w-100 btn btn-outline-danger mb-4 rounded-4">Cancelar cadastro</a>
+			</div>
+			#{/else}
+		</div>
+	
+	</div>
+	
+</div>
+
+

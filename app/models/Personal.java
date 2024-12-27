@@ -3,6 +3,7 @@ package models;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,6 +23,9 @@ public class Personal extends Model {
 	
 	public String cpf; 
 	public float salario; 
+	
+	@OneToOne
+	public Login conta;
 	
 	@Override
 	public String toString() {

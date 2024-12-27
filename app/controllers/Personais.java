@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import models.Academia;
+import models.Cliente;
 import models.Personal;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -9,9 +11,9 @@ import play.mvc.With;
 @With(Seguranca.class)
 public class Personais extends Controller {
 	
-	public static void form() {
+	public static void form(Long idConta) {
 
-		render();
+		render(idConta);
 	}
 	
 	public static void salvar(Personal p) {
@@ -24,7 +26,12 @@ public class Personais extends Controller {
 		
 		p.save();
 		flash.success(mensagem);
-		listar(null);
+		
+		if(session.get("Status").equals("PERSONAL")) {
+			menu(p.id, p.conta.id);
+		} else {
+			listar(null);			
+		}
 	}
 	
 	public static void listar(String termo) {
@@ -50,6 +57,20 @@ public class Personais extends Controller {
 		Personal personal = Personal.findById(id);
 	
 		renderTemplate("Personais/form.html", personal);
+	}
+	
+	public static void menu(Long personalMenuId, Long idConta) {
+		
+		List<Academia> academiasMenu = Academia.findAll();
+		List<Cliente> clientesMenu = Cliente.findAll();
+		
+		if(personalMenuId == null) {
+			render(null, idConta, academiasMenu, clientesMenu);			
+		} else {
+			Personal personalMenu = Personal.findById(personalMenuId);
+			render(personalMenu, idConta, academiasMenu, clientesMenu);
+		}
+		
 	}
 	
 }
