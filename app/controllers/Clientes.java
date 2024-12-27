@@ -30,7 +30,7 @@ public class Clientes extends Controller {
 		c.save();
 		flash.success(mensagem);
 		
-		if(c.conta != null) {
+		if(session.get("Status").equals("CLIENTE")) {
 			menu(c.id, c.conta.id);
 		} else {
 			listar(null);			
@@ -43,7 +43,7 @@ public class Clientes extends Controller {
 		if(termo == null) {
 			clientes = Cliente.findAll();			
 		} else {
-			clientes =  Cliente.find("lower(nome) like ?1 or cpf like ?1 or lower(academia.nome) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			clientes = Cliente.find("lower(nome) like ?1 or lower(cpf) like ?1", "%" + termo.toLowerCase() + "%").fetch();
 		}
 		render(clientes, termo);
 	}
@@ -77,7 +77,7 @@ public class Clientes extends Controller {
 		List<Personal> personaisMenu = Personal.findAll();
 		
 		if(clienteMenuId == null) {
-			render(null, idConta);			
+			render(null, idConta, academiasMenu, personaisMenu);			
 		} else {
 			Cliente clienteMenu = Cliente.findById(clienteMenuId);
 			render(clienteMenu, idConta, academiasMenu, personaisMenu);

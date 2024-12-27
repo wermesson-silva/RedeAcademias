@@ -1,172 +1,166 @@
 #{extends 'main.html' /}
 #{set title:'Listagem' /}
 
-<div class=" h-100 m-auto col-10" >
-	<h1 class="text-center my-4" >Bem vindo ${session['usuarioLogado']}!</h1>
-	
-	#{if clienteMenu?.conta}
-	<h2>Dados Pessoais</h2>
-	
-	<table class="table my-4 table-bordered">
-		<thead class="table-dark">
-			<tr>
-				<th>Nome</th>
-				<th>Sobrenome</th>
-				<th>CPF</th>
-				<th>Contato</th>
-				<th>Data de nascimento</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td data-th="Nome">${clienteMenu.nome}</td>
-				<td data-th="Sobrenome">${clienteMenu.sobrenome}</td>
-				<td data-th="CPF">${clienteMenu.cpf}</td>
-				<td data-th="Contato">${clienteMenu.contato}</td>
-				<td data-th="Data de Nascimento">${clienteMenu.dataNascimento?.format('dd/MM/yyyy')}</td>
-			</tr>
-		</tbody>
-	</table>
-	
-	<h2>Seu Plano</h2>
-	
-	<table class="table my-4 table-bordered">
-		<thead class="table-light">
-			<tr>
-				<th>Turno</th>
-				<th>Acompanhamento</th>
-				<th>Academia</th>
-				<th>Personal</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>${clienteMenu.turno}</td>
-				<td>${clienteMenu.acompanhamentoPersonal}</td>
-				#{if clienteMenu.academia != null}
-					<td>${clienteMenu.academia}</td>
-				#{/if}
-				#{else}
-					<td>Não cadastrado</td>
-				#{/else}
-				<td>${clienteMenu.personal}</td>
-			</tr>
-		</tbody>
-	</table>
-	
-	#{if clienteMenu.academia != null}
-	<h2>Sua Academia</h2>
-	
-	<table class="table my-4 table-bordered">
-		<thead class="table-dark">
-			<tr>
-				<th>Nome</th>
-				<th>Endereço</th>
-				<th>Contato</th>
-				<th class="text-center">Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td data-th="Nome">${clienteMenu.academia?.nome}</td>
-				<td data-th="Endereço">${clienteMenu.academia?.endereco}</td>
-				<td data-th="Contato">${clienteMenu.academia?.contato}</td>
-				<td class="text-center">
-					<a href="@{clientes.removerAcademia(clienteMenu.id)}" class="btn btn-outline-danger btn-sm w-50">Sair</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	#{/if}
-	#{else}
-		<ul class="list-group mb-4">
-			  <li class="list-group-item text-center">
-			  	Você não está cadastrado em uma academia
-			  </li>
-		</ul>
-	#{/else}
-	#{if clienteMenu.personal != null}
-	<h2>Seu Personal</h2>
-	
-	<table class="table my-4 table-bordered">
-		<thead class="table-light">
-			<tr>
-				<th>Nome</th>
-				<th>Sobrenome</th>
-				<th>Contato</th>
-				<th class="text-center">Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>${clienteMenu.personal?.nome}</td>
-				<td>${clienteMenu.personal?.sobrenome}</td>
-				<td>${clienteMenu.personal?.contato}</td>
-				<td class="text-center">
-					<a href="@{clientes.removerPersonal(clienteMenu.id)}" class="btn btn-sm btn-outline-danger w-50">Remover</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	#{/if}
-	#{else}
-		<ul class="list-group mb-4">
-			  <li class="list-group-item text-center">
-			  	Você não possui um personal
-			  </li>
-		</ul>
-	#{/else}
-	
-			
-	<div class="row m-auto">
-		<ul class="list-group mb-3 col-12 col-sm-6">
-			<li class="list-group-item active bg-dark border-dark" aria-current="true">
-				<h3 class="text-center">Academias disponíveis</h3>
-			</li>
-			<li class="list-group-item" aria-current="true">
-				<form action="#" class="d-flex input-group input-group-sm">
-					<input class="form-control rounded-3 me-2" type="text" placeholder="Pesquise sua academia"/>					
-					<input class="btn btn-dark rounded-5" type="submit" value="Pesquisar" />				
-				</form>
-			</li>
-			
-			#{list items: academiasMenu, as: 'a'}
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-					${a} <a href="@{clientes.adicionarAcademia(a.id, clienteMenu.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>
-				</li>
-			#{/list}
-		</ul>	
-		<ul class="list-group mb-3 col-12 col-sm-6">
-			<li class="list-group-item active bg-dark border-dark" aria-current="true">
-				<h3 class="text-center">Personais disponíveis</h3>
-			</li>
-			<li class="list-group-item" aria-current="true">
-				<form action="#" class="d-flex input-group input-group-sm">
-					<input class="form-control rounded-3 me-2" type="text" placeholder="Pesquise seu personal"/>					
-					<input class="btn btn-dark rounded-5" type="submit" value="Pesquisar" />				
-				</form>
-			</li>
-			#{list items: personaisMenu, as: 'p'}
-				<li class="list-group-item d-flex justify-content-between align-items-center">
-					${p} <a href="@{clientes.adicionarPersonal(p.id, clienteMenu.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>
-				</li>
-			#{/list}
-		</ul>
-	</div>
-	#{/if}
-	
-	<div class="row w-100 m-auto">
-		#{if !clienteMenu?.conta}
-		<div class="col">
-			<a href="@{clientes.form(idConta)}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastre-se como cliente</a>
-		</div>
+<div class=" h-100 h-100 d-flex" >
+
+	<div class="p-4 m-auto rounded-5 col-12 col-sm-10">
+		<h1 class="text-center mb-5" >Bem vindo ${session['usuarioLogado']}!</h1>
+		
+		#{if clienteMenu?.conta}
+		<h2>Dados Pessoais</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>CPF</th>
+					<th>Contato</th>
+					<th>Data de nascimento</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-th="Nome">${clienteMenu.nome}</td>
+					<td data-th="Sobrenome">${clienteMenu.sobrenome}</td>
+					<td data-th="CPF">${clienteMenu.cpf}</td>
+					<td data-th="Contato">${clienteMenu.contato}</td>
+					<td data-th="Data de Nascimento">${clienteMenu.dataNascimento?.format('dd/MM/yyyy')}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<h2>Seu Plano</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-light">
+				<tr>
+					<th>Turno</th>
+					<th>Acompanhamento</th>
+					<th>Academia</th>
+					<th>Personal</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-th="Turno">${clienteMenu.turno}</td>
+					<td data-th="Acompanhamento">${clienteMenu.acompanhamentoPersonal}</td>
+					#{if clienteMenu.academia != null}
+						<td data-th="Academia">${clienteMenu.academia}</td>
+					#{/if}
+					#{else}
+						<td data-th="Academia">Não cadastrado</td>
+					#{/else}
+					<td data-th="Personal">${clienteMenu.personal}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		#{if clienteMenu.academia != null}
+		<h2>Sua Academia</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Contato</th>
+					<th class="text-center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-th="Nome">${clienteMenu.academia?.nome}</td>
+					<td data-th="Endereço">${clienteMenu.academia?.endereco}</td>
+					<td data-th="Contato">${clienteMenu.academia?.contato}</td>
+					<td class="text-center" data-th="Ações">
+						<a href="@{clientes.removerAcademia(clienteMenu.id)}" class="btn btn-outline-danger btn-sm w-50">Sair</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 		#{/if}
 		#{else}
-		<div class="col">
-			<a href="@{clientes.remover(clienteMenu?.id)}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Cancelar cadastro</a>
-		</div>
+			<ul class="list-group mb-4">
+				  <li class="list-group-item text-center">
+				  	Você não está cadastrado em uma academia
+				  </li>
+			</ul>
 		#{/else}
+		#{if clienteMenu.personal != null}
+		<h2>Seu Personal</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-light">
+				<tr>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>Contato</th>
+					<th class="text-center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td data-th="Nome">${clienteMenu.personal?.nome}</td>
+					<td data-th="Sobrenome">${clienteMenu.personal?.sobrenome}</td>
+					<td data-th="Contato">${clienteMenu.personal?.contato}</td>
+					<td class="text-center" data-th="Ações">
+						<a href="@{clientes.removerPersonal(clienteMenu.id)}" class="btn btn-sm btn-outline-danger w-50">Remover</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		#{/if}
+		#{else}
+			<ul class="list-group mb-4">
+				  <li class="list-group-item text-center">
+				  	Você não possui um personal
+				  </li>
+			</ul>
+		#{/else}
+		
+				
+		#{/if}
+		<div class="row m-auto">
+			<ul class="list-group mb-3 col-12 col-sm-6">
+				<li class="list-group-item active bg-dark border-dark" aria-current="true">
+					<h3 class="text-center">Academias disponíveis</h3>
+				</li>
+				#{list items: academiasMenu, as: 'a'}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						${a}
+						#{if clienteMenu}<a href="@{clientes.adicionarAcademia(a.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+					</li>
+				#{/list}
+			</ul>	
+			<ul class="list-group mb-3 col-12 col-sm-6">
+				<li class="list-group-item active bg-dark border-dark" aria-current="true">
+					<h3 class="text-center">Personais disponíveis</h3>
+				</li>
+				#{list items: personaisMenu, as: 'p'}
+					<li class="list-group-item d-flex justify-content-between align-items-center">
+						${p}
+						#{if clienteMenu}<a href="@{clientes.adicionarPersonal(p.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+					</li>
+				#{/list}
+			</ul>
+		</div>
+		
+		<div class="row w-100 m-auto">
+			#{if !clienteMenu?.conta}
+			<div class="col">
+				<a href="@{clientes.form(idConta)}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastre-se como cliente</a>
+			</div>
+			#{/if}
+			#{else}
+			<div class="col">
+				<a href="@{clientes.remover(clienteMenu?.id)}" class="w-100 btn btn-outline-danger mb-4 rounded-4">Cancelar cadastro</a>
+			</div>
+			#{/else}
+		</div>
+	
 	</div>
+	
 </div>
 
 
