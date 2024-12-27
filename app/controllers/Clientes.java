@@ -31,7 +31,7 @@ public class Clientes extends Controller {
 		flash.success(mensagem);
 		
 		if(c.conta != null) {
-			menu(c, c.conta.id);
+			menu(c.id, c.conta.id);
 		} else {
 			listar(null);			
 		}
@@ -52,7 +52,13 @@ public class Clientes extends Controller {
 		Cliente c = Cliente.findById(id);
 		c.delete();
 		flash.success("Cliente removido com sucesso!");
-		listar(null);
+		
+		if(session.get("Status").equals("CLIENTE")) {
+			menu(c.id, c.conta.id);
+		} else {
+			listar(null);			
+		}
+		
 	}
 	
 	public static void editar(Long id) {
@@ -65,8 +71,54 @@ public class Clientes extends Controller {
 		renderTemplate("Clientes/form.html", cliente, academias, personais);
 	}
 	
-	public static void menu(Cliente clienteMenu, Long idConta) {
-		render(clienteMenu, idConta);
+	public static void menu(Long clienteMenuId, Long idConta) {
+		
+		List<Academia> academiasMenu = Academia.findAll();
+		List<Personal> personaisMenu = Personal.findAll();
+		
+		if(clienteMenuId == null) {
+			render(null, idConta);			
+		} else {
+			Cliente clienteMenu = Cliente.findById(clienteMenuId);
+			render(clienteMenu, idConta, academiasMenu, personaisMenu);
+		}
+		
+	}
+	
+	public static void adicionarAcademia(Long idAcademia, Long idCliente) {
+		Cliente cliente = Cliente.findById(idCliente);
+		Academia academia = Academia.findById(idAcademia);
+		cliente.academia = academia;
+		cliente.save();
+		flash.success("Cadastro na academia " + cliente.academia + " realizado!");
+		menu(cliente.id, cliente.conta.id);
+	}
+	
+	public static void removerAcademia(Long idCliente) {
+		Cliente cliente = Cliente.findById(idCliente);
+		flash.success("Você saiu da academia: " + cliente.academia);
+		cliente.academia = null;
+		cliente.save();
+		menu(cliente.id, cliente.conta.id);
+	}
+	
+	public static void adicionarPersonal(Long idPersonal, Long idCliente) {
+		Cliente cliente = Cliente.findById(idCliente);
+		Personal personal = Personal.findById(idPersonal);
+		cliente.personal = personal;
+		cliente.acompanhamentoPersonal = "Sim";
+		cliente.save();
+		flash.success("Cadastro com o personal " + cliente.personal + " realizado!");
+		menu(cliente.id, cliente.conta.id);
+	}
+	
+	public static void removerPersonal(Long idCliente) {
+		Cliente cliente = Cliente.findById(idCliente);
+		flash.success("Você cancelou o acompanhamento com o personal: " + cliente.personal);
+		cliente.personal = null;
+		cliente.acompanhamentoPersonal = "Não";
+		cliente.save();
+		menu(cliente.id, cliente.conta.id);
 	}
 	
 }

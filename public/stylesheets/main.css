@@ -6,3 +6,26 @@ html, body {
     max-width: 600px;
     padding: 1rem;
 }
+
+@media (max-width: 767px) {
+	thead {
+		display: none;
+	}
+	
+	table tbody tr {
+		margin-bottom: 15px;
+		display: block;
+	}
+	
+	
+	td {
+		display: block;
+		text-align: center;
+	}
+	
+	td:before {
+		content: attr(data-th) " ---- ";
+		font-weight: bold;
+	}
+	
+}

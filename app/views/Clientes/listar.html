@@ -2,77 +2,74 @@
 #{set title:'Listagem' /}
 
 
-
-<div class=" h-100 m-auto col-10" >
-	<h1 class="text-center my-4" >Clientes Cadastrados</h1>
+<div class="h-100 h-100 d-flex" >
 	
-	
-	<div>
-		<form action="@{Clientes.listar}">
-			<div class="row w-25" >
-				<div class="col-10">
-					<input class="form-control rounded-3" type="text" name="termo" value="${termo}" placeholder="Nome, cpf ou academia"/>					
-				</div>
-				<div class="col-2">
-					<input class="btn btn-primary rounded-5" type="submit" value="Pesquisar" />				
-				</div>
+	<div  class="p-4 m-auto rounded-5 col-12 col-sm-10">
+		<h1 class="text-center mb-4" >Clientes Cadastrados</h1>
+		
+		<div>
+			<form action="@{Clientes.listar}" class="d-flex">
+				<input class="form-control rounded-3 mx-2" type="text" name="termo" value="${termo}" placeholder="Nome, cpf ou academia"/>					
+				<input class="btn btn-dark rounded-5 mx-2" type="submit" value="Pesquisar" />				
+			</form>
+		</div>
+		
+		<div class="table-responsive">
+			<table class="table my-4 table-bordered">
+				<thead class="table-light">
+					<tr>
+						<th>Nome</th>
+						<th>Sobrenome</th>
+						<th>CPF</th>
+						<th>Contato</th>
+						<th>idade</th>
+						<th>Turno</th>
+						<th>Acompanhamento</th>
+						<th>Academia</th>
+						<th>Personal</th>
+						<th>Ações</th>
+					</tr>
+				</thead>
+				<tbody>
+					#{list items: clientes, as:'c'}
+						<tr>
+							<td data-th="Nome">${c.nome}</td>
+							<td data-th="Sobrenome">${c.sobrenome}</td>
+							<td data-th="CPF">${c.cpf}</td>
+							<td data-th="Contato">${c.contato}</td>
+							<td data-th="Data de nascimento">${c.dataNascimento.format('dd/MM/yyyy')}</td>
+							<td data-th="Turno">${c.turno}</td>
+							<td data-th="Acompanhamento">${c.acompanhamentoPersonal}</td>
+							<td data-th="Academia">${c.academia?.nome}</td>
+							<td data-th="Personal">${c.personal?.nome}</td>
+							<td class="text-center" data-th="Ações">
+								<a href="@{clientes.remover(c.id)}" class="text-dark text-decoration-none">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-trash3-fill"
+										viewBox="0 0 16 16">
+										<path
+											d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
+									</svg>
+								</a>
+								<a href="@{clientes.editar(c.id)}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-highlighter" viewBox="0 0 16 16">
+										<path fill-rule="evenodd" d="M11.096.644a2 2 0 0 1 2.791.036l1.433 1.433a2 2 0 0 1 .035 2.791l-.413.435-8.07 8.995a.5.5 0 0 1-.372.166h-3a.5.5 0 0 1-.234-.058l-.412.412A.5.5 0 0 1 2.5 15h-2a.5.5 0 0 1-.354-.854l1.412-1.412A.5.5 0 0 1 1.5 12.5v-3a.5.5 0 0 1 .166-.372l8.995-8.07zm-.115 1.47L2.727 9.52l3.753 3.753 7.406-8.254zm3.585 2.17.064-.068a1 1 0 0 0-.017-1.396L13.18 1.387a1 1 0 0 0-1.396-.018l-.068.065zM5.293 13.5 2.5 10.707v1.586L3.707 13.5z"/>
+									</svg>
+								</a>
+							</td>
+						</tr>
+					#{/list}
+				</tbody>
+			</table>
+		</div>
+		<div class="row w-100 m-auto">
+			<div class="col-6">
+				<a href="@{clientes.form}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastrar novo cliente</a>
 			</div>
-		</form>
-	</div>
+			<div class="col-6">
+				<a href="@{application.index}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Voltar para a tela inicial</a>
+			</div>
+		</div>
 	
-	<table class="table mt-4 mb-4">
-		<thead class="table-light">
-			<tr>
-				<th>Nome</th>
-				<th>Sobrenome</th>
-				<th>CPF</th>
-				<th>Contato</th>
-				<th>Data de nascimento</th>
-				<th>Turno</th>
-				<th>Acompanhamento</th>
-				<th>Academia</th>
-				<th>Personal</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			#{list items: clientes, as:'c'}
-				<tr>
-					<td>${c.nome}</td>
-					<td>${c.sobrenome}</td>
-					<td>${c.cpf}</td>
-					<td>${c.contato}</td>
-					<td>${c.dataNascimento.format('dd/MM/yyyy')}</td>
-					<td>${c.turno}</td>
-					<td>${c.acompanhamentoPersonal}</td>
-					<td>${c.academia?.nome}</td>
-					<td>${c.personal?.nome}</td>
-					<td>
-						<a href="@{clientes.remover(c.id)}" class="text-dark text-decoration-none">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
-								viewBox="0 0 16 16">
-								<path
-									d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5" />
-							</svg>
-						</a>|
-						<a href="@{clientes.editar(c.id)}">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-highlighter" viewBox="0 0 16 16">
-								<path fill-rule="evenodd" d="M11.096.644a2 2 0 0 1 2.791.036l1.433 1.433a2 2 0 0 1 .035 2.791l-.413.435-8.07 8.995a.5.5 0 0 1-.372.166h-3a.5.5 0 0 1-.234-.058l-.412.412A.5.5 0 0 1 2.5 15h-2a.5.5 0 0 1-.354-.854l1.412-1.412A.5.5 0 0 1 1.5 12.5v-3a.5.5 0 0 1 .166-.372l8.995-8.07zm-.115 1.47L2.727 9.52l3.753 3.753 7.406-8.254zm3.585 2.17.064-.068a1 1 0 0 0-.017-1.396L13.18 1.387a1 1 0 0 0-1.396-.018l-.068.065zM5.293 13.5 2.5 10.707v1.586L3.707 13.5z"/>
-							</svg>
-						</a>
-					</td>
-				</tr>
-			#{/list}
-			
-		</tbody>
-	</table>
-	<div class="row w-100 m-auto">
-		<div class="col-6">
-			<a href="@{clientes.form}" class="w-100 btn btn-dark mb-2 rounded-4">Cadastrar novo cliente</a>
-		</div>
-		<div class="col-6">
-			<a href="@{application.index}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Voltar para a tela inicial</a>
-		</div>
 	</div>
 </div>
 

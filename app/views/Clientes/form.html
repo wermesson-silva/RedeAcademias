@@ -23,27 +23,29 @@
 			</div>
 		</div>
 		<div class="row g-3 mb-2">
-			<div class="col-4">
+			<div class="col-6 col-sm-4">
 				<label for="floatingCPF" class="form-label">CPF</label>
 				<input type="text" name="c.cpf" class="form-control" id="floatingCPF" value="${cliente?.cpf}" placeholder="Insira aqui o cpf" required="required">
 			</div>
-			<div class="col-4">
+			<div class="col-6 col-sm-4">
 				<label for="floatingContato" class="form-label">Contato</label>
 				<input type="text" name="c.contato" class="form-control" id="floatingContato" value="${cliente?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
 			</div>
-			<div class="col-4">
+			<div class="col-12 col-sm-4 ">
 				<label for="floatingData" class="form-label">Data de Nascimento</label>
 				<input type="date" name="c.dataNascimento" class="form-control" id="floatingData" value="${cliente?.dataNascimento}" required="required">
 			</div>
 		</div>
-
+		
+		
 		<select name="c.turno" class="form-select mb-3 py-2">
 			<option>Selecione o turno</option>
 			<option value="Manhã" ${"Manhã".equals(cliente?.turno) ? "selected" : ""}>Manhã</option>
 			<option value="Tarde" ${"Tarde".equals(cliente?.turno) ? "selected" : ""}>Tarde</option>
 			<option value="Noite" ${"Noite".equals(cliente?.turno) ? "selected" : ""}>Noite</option>
 		</select>
-
+		
+		#{if session['Status'] == ADMINISTRADOR}
 		<div class="form-check mb-2">
 			<input type="radio" id="flexRadioDefault1" name="c.acompanhamentoPersonal" value="Sim" class="form-check-input" required="required"  ${"Sim".equals(cliente?.acompanhamentoPersonal) ? "checked" : ""}>
 			<label for="flexRadioDefault1" class="form-check-label">Possui Acompanhamento</label>
@@ -54,7 +56,8 @@
 		</div>
 		
 		<div class="row g-3 mb-3">
-			<div class="col-6">
+			
+			<div class="col-12 col-sm-6">
 				<label class="form-label">Selecione a Academia:</label>
 				<select class="form-select" name="c.academia.id">
 					#{list items:academias, as:'a'}
@@ -62,7 +65,7 @@
 				  	#{/list}
 				</select>
 			</div>
-			<div class="col-6">
+			<div class="col-12 col-sm-6">
 				<label class="form-label">Selecione o Personal:</label>
 				<select class="form-select" name="c.personal.id">
 					#{list items:personais, as:'p'}
@@ -71,8 +74,9 @@
 				</select>
 			</div>
 		</div>
+		#{/if}
 		
-		<input type="submit" value="Salvar" class="btn btn-primary w-100 py-2 mb-2 rounded-4">
+		<input type="submit" value="Salvar" class="btn btn-dark w-100 py-2 mb-2 rounded-4">
 		<a href="@{Clientes.listar}" class="btn btn-outline-dark w-100 py-2 rounded-4">Ir para a listagem</a>
 	</form>
 </div>

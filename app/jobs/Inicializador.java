@@ -3,7 +3,9 @@ package jobs;
 import java.text.SimpleDateFormat;
 
 import models.Academia;
+import models.Login;
 import models.Personal;
+import models.Status;
 import play.jobs.Job;
 import play.jobs.OnApplicationStart;
 
@@ -48,6 +50,14 @@ public class Inicializador extends Job {
 			p1.dataNascimento = sdf.parse("21/02/1998");
 			p1.salario = 2546.00f;
 			p1.save();
+		}
+		
+		if(Login.count() == 0) {
+			Login l1 = new Login();
+			l1.login = "wermesson";
+			l1.senha = "1234";
+			l1.tipo = Status.CLIENTE;
+			l1.save();
 		}
 	}
 

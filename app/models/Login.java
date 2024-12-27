@@ -32,7 +32,12 @@ public class Login extends Model{
 	public static void abrirPagina(Status tipo, Long idConta) {
 		if(tipo == Status.CLIENTE) {
 			Cliente c = Cliente.find("conta.id = ?1", idConta).first();
-			Clientes.menu(c, idConta);
+			
+			if(c == null ) {
+				Clientes.menu(null, idConta);				
+			} else {
+				Clientes.menu(c.id, idConta);
+			}
 		} else if(tipo == Status.PERSONAL) {
 			
 		}
