@@ -38,6 +38,7 @@ public class Logins extends Controller{
 			//SOMENTE USUARIO QUE FORAM ENCONTRADOS NO BANCO
 			session.put("usuarioLogado", usuarioLogado);
 			session.put("Status", loginUsuario.tipo);
+			session.put("idConta", loginUsuario.id);
 			Login.abrirPagina(loginUsuario.tipo, loginUsuario.id);
 		}
 	}

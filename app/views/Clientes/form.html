@@ -45,7 +45,7 @@
 			<option value="Noite" ${"Noite".equals(cliente?.turno) ? "selected" : ""}>Noite</option>
 		</select>
 		
-		#{if session['Status'] == ADMINISTRADOR}
+		#{if session['Status'].equals("ADMINISTRADOR")}
 		<div class="form-check mb-2">
 			<input type="radio" id="flexRadioDefault1" name="c.acompanhamentoPersonal" value="Sim" class="form-check-input" required="required"  ${"Sim".equals(cliente?.acompanhamentoPersonal) ? "checked" : ""}>
 			<label for="flexRadioDefault1" class="form-check-label">Possui Acompanhamento</label>

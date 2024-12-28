@@ -5,6 +5,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 
+import controllers.Academias;
 import controllers.Clientes;
 import controllers.Personais;
 import play.db.jpa.Model;
@@ -47,6 +48,8 @@ public class Login extends Model{
 			} else {
 				Personais.menu(p.id, idConta);
 			}
+		} else if(tipo == Status.ADMINISTRADOR) {
+			Academias.listar(null);
 		}
 	}
 }

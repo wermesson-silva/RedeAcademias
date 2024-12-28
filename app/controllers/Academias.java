@@ -3,11 +3,18 @@ package controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Session;
+
 import models.Academia;
 import models.Cliente;
+import models.Login;
 import models.Personal;
+import models.Status;
+import play.mvc.Before;
 import play.mvc.Controller;
+import play.mvc.With;
 
+@With(Seguranca.class)
 public class Academias extends Controller {
 	
 	public static void form() {

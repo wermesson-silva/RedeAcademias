@@ -4,7 +4,10 @@ import java.util.List;
 
 import models.Academia;
 import models.Cliente;
+import models.Login;
 import models.Personal;
+import models.Status;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 

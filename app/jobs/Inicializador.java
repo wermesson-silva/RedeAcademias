@@ -65,6 +65,12 @@ public class Inicializador extends Job {
 			l2.tipo = Status.PERSONAL;
 			l2.save();
 			
+			Login l3 = new Login();
+			l3.login = "admin";
+			l3.senha = "1234";
+			l3.tipo = Status.ADMINISTRADOR;
+			l3.save();
+			
 		}
 	}
 

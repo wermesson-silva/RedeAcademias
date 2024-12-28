@@ -4,12 +4,39 @@ import java.util.List;
 
 import models.Academia;
 import models.Cliente;
+import models.Login;
 import models.Personal;
+import models.Status;
+import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
 
 @With(Seguranca.class)
 public class Clientes extends Controller {
+	
+	@Before(only = {"menu", "adicionarAcademia", "removerAcademia", "removerAcademia", "adicionarPersonal", "removerPersonal"})
+	static void acessoCliente() {
+		Status status = Seguranca.retornaStatus();
+		
+	    if (session.get("Status") != null) {
+	        if (status != Status.CLIENTE) {
+	            flash.error("Função restrita apenas para clientes");
+	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+	        }
+	    }
+	}
+	
+	@Before(only = {"salvar", "form"})
+	static void acessoAdmCliente() {
+		Status status = Seguranca.retornaStatus();
+		
+	    if (session.get("Status") != null) {
+	        if (status != Status.CLIENTE && status != Status.ADMINISTRADOR) {
+	            flash.error("Função restrita apenas para clientes e administradores");
+	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+	        }
+	    }
+	}
 	
 	public static void form(Long idConta) {
 		
