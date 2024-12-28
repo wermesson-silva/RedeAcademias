@@ -90,13 +90,13 @@ public class Clientes extends Controller {
 		Academia academia = Academia.findById(idAcademia);
 		cliente.academia = academia;
 		cliente.save();
-		flash.success("Cadastro na academia " + cliente.academia + " realizado!");
+		flash.success("Cadastro na academia realizado!");
 		menu(cliente.id, cliente.conta.id);
 	}
 	
 	public static void removerAcademia(Long idCliente) {
 		Cliente cliente = Cliente.findById(idCliente);
-		flash.success("Você saiu da academia: " + cliente.academia);
+		flash.success("Removido da academia com sucesso!");
 		cliente.academia = null;
 		cliente.save();
 		menu(cliente.id, cliente.conta.id);
@@ -108,13 +108,13 @@ public class Clientes extends Controller {
 		cliente.personal = personal;
 		cliente.acompanhamentoPersonal = "Sim";
 		cliente.save();
-		flash.success("Cadastro com o personal " + cliente.personal + " realizado!");
+		flash.success("Cadastro com o personal realizado!");
 		menu(cliente.id, cliente.conta.id);
 	}
 	
 	public static void removerPersonal(Long idCliente) {
 		Cliente cliente = Cliente.findById(idCliente);
-		flash.success("Você cancelou o acompanhamento com o personal: " + cliente.personal);
+		flash.success("Personal removido com sucesso!");
 		cliente.personal = null;
 		cliente.acompanhamentoPersonal = "Não";
 		cliente.save();

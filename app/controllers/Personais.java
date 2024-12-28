@@ -49,7 +49,12 @@ public class Personais extends Controller {
 		Personal p = Personal.findById(id);
 		p.delete();
 		flash.success("Personal removido com sucesso!");
-		listar(null);
+		
+		if(session.get("Status").equals("PERSONAL")) {
+			menu(p.id, p.conta.id);
+		} else {
+			listar(null);			
+		}
 	}
 	
 	public static void editar(Long id) {
@@ -71,6 +76,53 @@ public class Personais extends Controller {
 			render(personalMenu, idConta, academiasMenu, clientesMenu);
 		}
 		
+	}
+	
+	public static void adicionarAcademia(Long idAcademia, Long idPersonal) {
+		Academia academia = Academia.findById(idAcademia);
+		Personal personal = Personal.findById(idPersonal);
+		
+		academia.personais.add(personal);
+		academia.save();
+		
+		flash.success("Adicionado à academia com sucesso!");
+		menu(personal.id, personal.conta.id);
+		
+	}
+	
+	public static void adicionarCliente(Long idCliente, Long idPersonal) {
+		Cliente cliente = Cliente.findById(idCliente);
+		Personal personal = Personal.findById(idPersonal);
+		
+		cliente.personal = personal;
+		cliente.acompanhamentoPersonal = "Sim";
+		cliente.save();
+		
+		flash.success("Cliente adicionado com sucesso!");
+		menu(personal.id, personal.conta.id);
+		
+	}
+	
+	public static void removerAcademia(Long idAcademia, Long idPersonal) {
+		Academia academia = Academia.findById(idAcademia);
+		Personal personal = Personal.findById(idPersonal);
+		
+		academia.personais.remove(personal);
+		academia.save();
+		
+		flash.success("Removido da academia com sucesso!");
+		menu(personal.id, personal.conta.id);
+	}
+	
+	public static void removerCliente(Long idCliente, Long idPersonal) {
+		Cliente cliente = Cliente.findById(idCliente);
+		Personal personal = Personal.findById(idPersonal);
+		
+		cliente.personal = null;
+		cliente.save();
+		
+		flash.success("Cliente removido com sucesso!");
+		menu(personal.id, personal.conta.id);
 	}
 	
 }

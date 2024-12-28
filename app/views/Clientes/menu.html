@@ -129,7 +129,10 @@
 				#{list items: academiasMenu, as: 'a'}
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						${a}
-						#{if clienteMenu}<a href="@{clientes.adicionarAcademia(a.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if clienteMenu && clienteMenu.academia != a}<a href="@{clientes.adicionarAcademia(a.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if clienteMenu?.academia == a}
+							<a class="text-center text-success text-decoration-none">Cadastrado</a>
+						#{/if}
 					</li>
 				#{/list}
 			</ul>	
@@ -140,7 +143,10 @@
 				#{list items: personaisMenu, as: 'p'}
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						${p}
-						#{if clienteMenu}<a href="@{clientes.adicionarPersonal(p.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if clienteMenu && clienteMenu.personal != p}<a href="@{clientes.adicionarPersonal(p.id, clienteMenu?.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if clienteMenu?.personal == p}
+							<a class="text-center text-success text-decoration-none">Cadastrado</a>
+						#{/if}
 					</li>
 				#{/list}
 			</ul>

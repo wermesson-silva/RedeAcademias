@@ -10,7 +10,7 @@
 		<h2>Dados Pessoais</h2>
 		
 		<table class="table my-4 table-bordered">
-			<thead class="table-dark">
+			<thead class="table-light">
 				<tr>
 					<th>Nome</th>
 					<th>Sobrenome</th>
@@ -27,6 +27,62 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<h2>Academias que você trabalha</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>Nome</th>
+					<th>Endereço</th>
+					<th>Contato</th>
+					<th class="text-center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				#{list items: academiasMenu, as: 'a1'}
+					#{if a1.personais.contains(personalMenu)}
+						<tr>
+							<td>${a1.nome}</td>
+							<td>${a1.endereco}</td>
+							<td>${a1.contato}</td>
+							<td class="text-center">
+								<a href="@{Personais.removerAcademia(a1.id, personalMenu.id)}" class="btn btn-sm btn-danger">Sair</a>
+							</td>
+						</tr>
+					#{/if}
+				#{/list}
+			</tbody>
+		</table>
+		
+		<h2>Clientes que você acompanha</h2>
+		
+		<table class="table my-4 table-bordered">
+			<thead class="table-light">
+				<tr>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>Contato</th>
+					<th>Turno</th>
+					<th class="text-center">Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				#{list items: clientesMenu, as: 'c1'}
+					#{if c1.personal == personalMenu}
+						<tr>
+							<td>${c1.nome}</td>
+							<td>${c1.sobrenome}</td>
+							<td>${c1.contato}</td>
+							<td>${c1.turno}</td>
+							<td class="text-center">
+								<a href="@{Personais.removerCliente(c1.id, personalMenu.id)}" class="btn btn-sm btn-danger">Remover</a>
+							</td>
+						</tr>
+					#{/if}
+				#{/list}
+			</tbody>
+		</table>
 				
 		#{/if}
 		<div class="row m-auto">
@@ -37,7 +93,10 @@
 				#{list items: academiasMenu, as: 'a'}
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						${a}
-						#{if personalMenu}<a href="#" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if personalMenu && !a.personais.contains(personalMenu)}<a href="@{Personais.adicionarAcademia(a.id, personalMenu.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if a.personais.contains(personalMenu)}
+							<a class="text-center text-success text-decoration-none">Cadastrado</a>
+						#{/if}
 					</li>
 				#{/list}
 			</ul>	
@@ -48,9 +107,9 @@
 				#{list items: clientesMenu, as: 'c'}
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						${c.nome}
-						#{if personalMenu && c.personal == null}<a href="#" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
+						#{if personalMenu && c.personal == null}<a href="@{Personais.adicionarCliente(c.id, personalMenu.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
 						#{else}
-							<a class="text-center text-success text-decoration-none">Possui personal</a>
+							<a class="text-center text-danger text-decoration-none">Possui personal</a>
 						#{/else}
 					</li>
 				#{/list}
@@ -65,7 +124,7 @@
 			#{/if}
 			#{else}
 			<div class="col">
-				<a href="#" class="w-100 btn btn-outline-danger mb-4 rounded-4">Cancelar cadastro</a>
+				<a href="@{Personais.remover(personalMenu.id)}" class="w-100 btn btn-outline-danger mb-4 rounded-4">Cancelar cadastro</a>
 			</div>
 			#{/else}
 		</div>
