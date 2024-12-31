@@ -48,7 +48,7 @@ public class Inicializador extends Job {
 			p1.contato = "84 9 8642 1245";
 			p1.cpf = "458.132.154-65";
 			p1.dataNascimento = sdf.parse("21/02/1998");
-			p1.salario = 2546.00f;
+			p1.salario = "2.000,00";
 			p1.save();
 		}
 		

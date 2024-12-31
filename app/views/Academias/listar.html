@@ -8,13 +8,12 @@
 		
 		<div>
 			<form action="@{Academias.listar}" class="d-flex">
-				<input class="form-control rounded-3 mx-2" type="text" name="termo" value="${termo}" placeholder="Nome, endereço ou contato"/>					
-				<input class="btn btn-dark rounded-5 mx-2" type="submit" value="Pesquisar" />				
+				<input id="termoAcademia" class="form-control rounded-3 mx-2" type="text" name="termo" value="${termo}" placeholder="Digite para pesquisar"/>					
 			</form>
 		</div>
 		
 		<div class="table-responsive">
-			<table class="table my-4 table-bordered">
+			<table id="dado" class="table my-4 table-bordered">
 				<thead class="table-light">
 					<tr>
 						<th>Nome</th>

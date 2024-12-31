@@ -8,21 +8,20 @@
 		<h1 class="text-center mb-4" >Clientes Cadastrados</h1>
 		
 		<div>
-			<form action="@{Clientes.listar}" class="d-flex">
-				<input class="form-control rounded-3 mx-2" type="text" name="termo" value="${termo}" placeholder="Nome, cpf ou academia"/>					
-				<input class="btn btn-dark rounded-5 mx-2" type="submit" value="Pesquisar" />				
+			<form class="d-flex">
+				<input id="termoCliente" class="form-control rounded-3 mx-2" type="text" name="termo" value="${termo}" placeholder="Digite para pesquisar"/>					
 			</form>
 		</div>
 		
 		<div class="table-responsive">
-			<table class="table my-4 table-bordered">
+			<table id="dado" class="table my-4 table-bordered">
 				<thead class="table-light">
 					<tr>
 						<th>Nome</th>
 						<th>Sobrenome</th>
 						<th>CPF</th>
 						<th>Contato</th>
-						<th>idade</th>
+						<th>Idade</th>
 						<th>Turno</th>
 						<th>Acompanhamento</th>
 						<th>Academia</th>
@@ -37,7 +36,7 @@
 							<td data-th="Sobrenome">${c.sobrenome}</td>
 							<td data-th="CPF">${c.cpf}</td>
 							<td data-th="Contato">${c.contato}</td>
-							<td data-th="Data de nascimento">${c.dataNascimento.format('dd/MM/yyyy')}</td>
+							<td data-th="Idade">${c.idade}</td>
 							<td data-th="Turno">${c.turno}</td>
 							<td data-th="Acompanhamento">${c.acompanhamentoPersonal}</td>
 							<td data-th="Academia">${c.academia?.nome}</td>

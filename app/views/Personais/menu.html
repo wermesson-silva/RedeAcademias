@@ -108,9 +108,9 @@
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						${c.nome}
 						#{if personalMenu && c.personal == null}<a href="@{Personais.adicionarCliente(c.id, personalMenu.id)}" class="btn btn-sm btn-outline-dark">Escolher</a>#{/if}
-						#{else}
+						#{if c.personal}
 							<a class="text-center text-danger text-decoration-none">Possui personal</a>
-						#{/else}
+						#{/if}
 					</li>
 				#{/list}
 			</ul>

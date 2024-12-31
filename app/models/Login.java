@@ -49,7 +49,7 @@ public class Login extends Model{
 				Personais.menu(p.id, idConta);
 			}
 		} else if(tipo == Status.ADMINISTRADOR) {
-			Academias.listar(null);
+			Academias.listar();
 		}
 	}
 }

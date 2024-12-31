@@ -24,12 +24,12 @@
 		</div>
 		<div class="row g-3 mb-2">
 			<div class="col-6 col-sm-4">
-				<label for="floatingCPF" class="form-label">CPF</label>
-				<input type="text" name="c.cpf" class="form-control" id="floatingCPF" value="${cliente?.cpf}" placeholder="Insira aqui o cpf" required="required">
+				<label for="cpf" class="form-label">CPF</label>
+				<input type="text" name="c.cpf" class="form-control" id="cpf" value="${cliente?.cpf}" placeholder="Insira aqui o cpf" required="required">
 			</div>
 			<div class="col-6 col-sm-4">
-				<label for="floatingContato" class="form-label">Contato</label>
-				<input type="text" name="c.contato" class="form-control" id="floatingContato" value="${cliente?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
+				<label for="contato" class="form-label">Contato</label>
+				<input type="text" name="c.contato" class="form-control" id="contato" value="${cliente?.contato}" placeholder="(xx) xxxx-xxxx" required="required">
 			</div>
 			<div class="col-12 col-sm-4 ">
 				<label for="floatingData" class="form-label">Data de Nascimento</label>
@@ -39,7 +39,7 @@
 		
 		
 		<select name="c.turno" class="form-select mb-3 py-2">
-			<option>Selecione o turno</option>
+			<option value="nenhum">Selecione o turno</option>
 			<option value="Manhã" ${"Manhã".equals(cliente?.turno) ? "selected" : ""}>Manhã</option>
 			<option value="Tarde" ${"Tarde".equals(cliente?.turno) ? "selected" : ""}>Tarde</option>
 			<option value="Noite" ${"Noite".equals(cliente?.turno) ? "selected" : ""}>Noite</option>
@@ -80,3 +80,4 @@
 		<a href="@{Clientes.listar}" class="btn btn-outline-dark w-100 py-2 rounded-4">Ir para a listagem</a>
 	</form>
 </div>
+

@@ -33,19 +33,28 @@ public class Personais extends Controller {
 		if(session.get("Status").equals("PERSONAL")) {
 			menu(p.id, p.conta.id);
 		} else {
-			listar(null);			
+			listar();			
 		}
 	}
 	
-	public static void listar(String termo) {
+	public static void listar() {
+		List<Personal> personais =  Personal.findAll();
+		render(personais);
+	}
+	
+	public static void listarJson(String termo) {
 		List<Personal> personais = null;
 		
 		if(termo == null) {
 			personais = Personal.findAll();			
 		} else {
-			personais =  Personal.find("lower(nome) like ?1 or salario like ?1 or lower(academia.nome) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			personais = Personal.find("lower(nome) like ?1 or salario like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			
+			for(Personal posicao: personais) {
+				posicao.idade = Validacao.retornaIdade(posicao.dataNascimento);
+			}
 		}
-		render(personais, termo);
+		renderJSON(personais);
 	}
 	
 	public static void remover(Long id) {
@@ -56,7 +65,7 @@ public class Personais extends Controller {
 		if(session.get("Status").equals("PERSONAL")) {
 			menu(p.id, p.conta.id);
 		} else {
-			listar(null);			
+			listar();			
 		}
 	}
 	

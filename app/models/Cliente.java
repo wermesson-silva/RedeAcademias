@@ -7,7 +7,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import controllers.Validacao;
 import play.db.jpa.Model;
 
 @Entity
@@ -21,6 +23,9 @@ public class Cliente extends Model{
 	@Temporal(TemporalType.DATE)
 	public Date dataNascimento;
 	
+	@Transient
+	public Long idade;
+	
 	public String turno;
 	public String acompanhamentoPersonal;
 	
@@ -32,5 +37,9 @@ public class Cliente extends Model{
 	
 	@OneToOne
 	public Login conta;
+	
+	public Long getIdade() {
+		return Validacao.retornaIdade(dataNascimento);
+	}
 	
 }

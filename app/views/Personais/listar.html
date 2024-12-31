@@ -11,7 +11,7 @@
 		<form action="@{Personais.listar}">
 			<div class="row w-25" >
 				<div class="col-10">
-					<input class="form-control rounded-3" type="text" name="termo" value="${termo}" placeholder="Nome, cpf ou salário"/>					
+					<input id="termoPersonal" class="form-control rounded-3" type="text" name="termo" value="${termo}" placeholder="Nome, cpf ou salário"/>					
 				</div>
 				<div class="col-2">
 					<input class="btn btn-primary rounded-5" type="submit" value="Pesquisar" />				
@@ -20,14 +20,14 @@
 		</form>
 	</div>
 	
-	<table class="table mt-4 mb-4">
+	<table id="dado" class="table mt-4 mb-4">
 		<thead class="table-light">
 			<tr>
 				<th>Nome</th>
 				<th>Sobrenome</th>
 				<th>CPF</th>
 				<th>Contato</th>
-				<th>Data de nascimento</th>
+				<th>Idade</th>
 				<th>Salário</th>
 				<th>Ações</th>
 			</tr>
@@ -39,7 +39,7 @@
 					<td>${p.sobrenome}</td>
 					<td>${p.cpf}</td>
 					<td>${p.contato}</td>
-					<td>${p.dataNascimento.format('dd/MM/yyyy')}</td>
+					<td>${p.idade}</td>
 					<td>${p.salario}</td>
 					<td>
 						<a href="@{Personais.remover(p.id)}" class="text-dark text-decoration-none">

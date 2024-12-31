@@ -31,10 +31,15 @@ public class Academias extends Controller {
 		
 		a.save();
 		flash.success(mensagem);
-		listar(null);
+		listar();
 	}
 	
-	public static void listar(String termo) {
+	public static void listar() {
+		List<Academia> academias = Academia.findAll();			
+		render(academias);
+	}
+	
+	public static void listarJson(String termo) {
 		List<Academia> academias = null;
 		
 		if(termo == null) {
@@ -42,14 +47,14 @@ public class Academias extends Controller {
 		} else {
 			academias =  Academia.find("lower(nome) like ?1 or lower(endereco) like ?1 or contato like ?1", "%" + termo.toLowerCase() + "%").fetch();
 		}
-		render(academias, termo);
+		renderJSON(academias);
 	}
 	
 	public static void remover(Long id) {
 		Academia a = Academia.findById(id);
 		a.delete();
 		flash.success("Academia removida com sucesso!");
-		listar(null);
+		listar();
 	}
 	
 	public static void editar(Long id) {

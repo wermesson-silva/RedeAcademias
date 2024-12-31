@@ -14,7 +14,7 @@ import play.mvc.With;
 @With(Seguranca.class)
 public class Clientes extends Controller {
 	
-	@Before(only = {"menu", "adicionarAcademia", "removerAcademia", "removerAcademia", "adicionarPersonal", "removerPersonal"})
+	@Before(only = {"menu", "adicionarAcademia", "removerAcademia", "adicionarPersonal", "removerPersonal"})
 	static void acessoCliente() {
 		Status status = Seguranca.retornaStatus();
 		
@@ -50,29 +50,44 @@ public class Clientes extends Controller {
 		
 		String mensagem = "Cliente cadastrado com sucesso!";
 		
-		if(c.id != null) {
-			mensagem = "Dados do cliente editados com sucesso!";
-		}
+		if(c.id != null) mensagem = "Dados do cliente editados com sucesso!";
 		
-		c.save();
-		flash.success(mensagem);
-		
-		if(session.get("Status").equals("CLIENTE")) {
-			menu(c.id, c.conta.id);
+		if(Validacao.validarCliente(c)) {
+			c.save();
+			flash.success(mensagem);			
 		} else {
-			listar(null);			
+			if(c.id != null) {
+				editar(c.id);				
+			} else {
+				if(c.conta != null) form(c.conta.id);
+				else form(null);
+			}
+			return;
 		}
+		
+		if(session.get("Status").equals("CLIENTE")) menu(c.id, c.conta.id);
+		else listar();
 	}
 	
-	public static void listar(String termo) {
+	public static void listar() {
+		List<Cliente> clientes = Cliente.findAll();
+		
+		render(clientes);
+	}
+	
+	public static void listarJson(String termo) {
 		List<Cliente> clientes = null;
 		
 		if(termo == null) {
 			clientes = Cliente.findAll();			
 		} else {
 			clientes = Cliente.find("lower(nome) like ?1 or lower(cpf) like ?1", "%" + termo.toLowerCase() + "%").fetch();
+			
+			for(Cliente posicao: clientes) {
+				posicao.idade = Validacao.retornaIdade(posicao.dataNascimento);
+			}
 		}
-		render(clientes, termo);
+		renderJSON(clientes);
 	}
 	
 	public static void remover(Long id) {
@@ -83,7 +98,7 @@ public class Clientes extends Controller {
 		if(session.get("Status").equals("CLIENTE")) {
 			menu(c.id, c.conta.id);
 		} else {
-			listar(null);			
+			listar();			
 		}
 		
 	}
