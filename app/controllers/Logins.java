@@ -15,11 +15,15 @@ public class Logins extends Controller{
 	
 	public static void salvar(Login l) {
 		
-		if(l.senha.equals(l.confirmaSenha)) {
+		if(!Validacao.validarLogin(l.login)) {
+			form();
+			return;
+			
+		} else if(l.senha.equals(l.confirmaSenha)) {
 			l.save();
-			formLogar();
+			logar(l.login, l.senha);
 		} else {
-			flash.error("As senhas devem ser iguais!");
+			flash.error("As senhas devem ser iguais");
 			form();
 		}
 		

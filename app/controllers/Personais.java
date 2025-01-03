@@ -14,27 +14,62 @@ import play.mvc.With;
 @With(Seguranca.class)
 public class Personais extends Controller {
 	
+	@Before(only = {"menu", "adicionarAcademia", "removerAcademia", "adicionarCliente", "removerCliente"})
+	static void acessoCliente() {
+		Status status = Seguranca.retornaStatus();
+		
+	    if (session.get("Status") != null) {
+	        if (status != Status.PERSONAL) {
+	            flash.error("Função restrita apenas para personais");
+	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+	        }
+	    }
+	}
+	
+	@Before(only = {"salvar", "form"})
+	static void acessoAdmPersonal() {
+		Status status = Seguranca.retornaStatus();
+		
+	    if (session.get("Status") != null) {
+	        if (status != Status.PERSONAL && status != Status.ADMINISTRADOR) {
+	            flash.error("Função restrita apenas para administradores");
+	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+	        }
+	    }
+	}
+	
 	public static void form(Long idConta) {
+		
+		Personal p = Personal.find("conta.id = ?1", idConta).first();
+		
+		if(p != null) {
+			flash.error("Função restrita apenas para administradores!");
+			menu(p.id, idConta);
+		} else {
+			render(idConta);
+		}
 
-		render(idConta);
 	}
 	
 	public static void salvar(Personal p) {
 		
 		String mensagem = "Personal cadastrado com sucesso!";
 		
-		if(p.id != null) {
-			mensagem = "Dados do personal editados com sucesso!";
-		}
+		if(p.id != null) mensagem = "Dados do personal editados com sucesso!";
 		
-		p.save();
-		flash.success(mensagem);
-		
-		if(session.get("Status").equals("PERSONAL")) {
-			menu(p.id, p.conta.id);
+		if(Validacao.validarPersonal(p)) {
+			p.save();
+			flash.success(mensagem);			
 		} else {
-			listar();			
+			if(p.conta != null) form(p.conta.id);
+			else form(null);
+			
+			return;
 		}
+		
+		if(session.get("Status").equals("PERSONAL")) menu(p.id, p.conta.id);
+		else listar();			
+		
 	}
 	
 	public static void listar() {
@@ -59,20 +94,18 @@ public class Personais extends Controller {
 	
 	public static void remover(Long id) {
 		Personal p = Personal.findById(id);
-		p.delete();
-		flash.success("Personal removido com sucesso!");
 		
-		if(session.get("Status").equals("PERSONAL")) {
-			menu(p.id, p.conta.id);
+		if(Validacao.validarRemocaoPersonal(p)) {
+			p.delete();
+			flash.success("Personal removido com sucesso!");
+			listar();						
 		} else {
-			listar();			
+			listar();
 		}
 	}
 	
 	public static void editar(Long id) {
-		
 		Personal personal = Personal.findById(id);
-	
 		renderTemplate("Personais/form.html", personal);
 	}
 	

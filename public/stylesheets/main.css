@@ -17,7 +17,6 @@ html, body {
 		display: block;
 	}
 	
-	
 	td {
 		display: block;
 		text-align: center;
@@ -26,6 +25,18 @@ html, body {
 	td:before {
 		content: attr(data-th) " ---- ";
 		font-weight: bold;
+	}
+	
+	#divFixa {
+		min-height: 100%;
+	}
+	
+}
+
+@media (min-width: 768px) {
+	
+	#divFixa {
+		min-height: 70%;
 	}
 	
 }

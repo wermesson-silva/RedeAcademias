@@ -32,18 +32,24 @@ public class Clientes extends Controller {
 		
 	    if (session.get("Status") != null) {
 	        if (status != Status.CLIENTE && status != Status.ADMINISTRADOR) {
-	            flash.error("Função restrita apenas para clientes e administradores");
+	            flash.error("Função restrita apenas administradores");
 	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
 	        }
 	    }
 	}
 	
 	public static void form(Long idConta) {
-		
+		Cliente c = Cliente.find("conta.id = ?1", idConta).first();
 		List <Academia> academias = Academia.findAll();
 		List <Personal> personais = Personal.findAll();
-
-		render(academias, personais, idConta);
+		
+		if(c != null) {
+			flash.error("Função restrita apenas para administradores");
+			menu(c.id, idConta);
+		} else {
+			render(academias, personais, idConta);
+		}
+		
 	}
 	
 	public static void salvar(Cliente c) {
@@ -56,12 +62,9 @@ public class Clientes extends Controller {
 			c.save();
 			flash.success(mensagem);			
 		} else {
-			if(c.id != null) {
-				editar(c.id);				
-			} else {
-				if(c.conta != null) form(c.conta.id);
-				else form(null);
-			}
+			if(c.conta != null) form(c.conta.id);
+			else form(null);
+			
 			return;
 		}
 		
@@ -94,13 +97,7 @@ public class Clientes extends Controller {
 		Cliente c = Cliente.findById(id);
 		c.delete();
 		flash.success("Cliente removido com sucesso!");
-		
-		if(session.get("Status").equals("CLIENTE")) {
-			menu(c.id, c.conta.id);
-		} else {
-			listar();			
-		}
-		
+		listar();			
 	}
 	
 	public static void editar(Long id) {

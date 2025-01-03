@@ -7,26 +7,6 @@ import play.mvc.Controller;
 
 public class Seguranca extends Controller {
 	
-	@Before
-	static void verificarAutenticacaoADM() {
-	    String action = request.actionMethod; // Obtém o nome da ação chamada
-	    if (action.equals("listar") || action.equals("remover") || action.equals("editar")) {
-	        Status status = Status.ADMINISTRADOR;
-
-	        if (session.get("Status") != null) {
-	            if (session.get("Status").equals("CLIENTE")) {
-	                status = Status.CLIENTE;
-	            } else if (session.get("Status").equals("PERSONAL")) {
-	                status = Status.PERSONAL;
-	            }
-
-	            if (status != Status.ADMINISTRADOR) {
-	                flash.error("Função restrita apenas para administrador");
-	                Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
-	            }
-	        }
-	    }
-	}
 
 	@Before
 	static void verificarAutenticacao() {
@@ -37,17 +17,36 @@ public class Seguranca extends Controller {
 		
 	}
 	
+	@Before
+	static void verificarAutenticacaoADM() {
+		String action = request.actionMethod;
+		if (action.equals("listar") || action.equals("remover") || action.equals("editar")) {
+			Status status = retornaStatus();
+			
+			if (status != Status.ADMINISTRADOR && session.get("Status") != null) {
+				flash.error("Função restrita apenas para administrador");
+				Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+			}
+			
+		}
+	}
 	
 	public static Status retornaStatus() {
-		Status status = Status.ADMINISTRADOR;
 		
-        if (session.get("Status").equals("CLIENTE")) {
-            status = Status.CLIENTE;
-        } else if (session.get("Status").equals("PERSONAL")) {
-            status = Status.PERSONAL;
-        }
-        
-        return status;
+		Status status = null;
+		
+		if(session.get("Status") != null) {
+			status = Status.ADMINISTRADOR;
+			
+			if (session.get("Status").equals("CLIENTE")) {
+				status = Status.CLIENTE;
+			} else if (session.get("Status").equals("PERSONAL")) {
+				status = Status.PERSONAL;
+			}
+		}
+		
+		return status;
+		
 	}
 	
 	

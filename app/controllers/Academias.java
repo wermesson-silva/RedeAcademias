@@ -17,6 +17,18 @@ import play.mvc.With;
 @With(Seguranca.class)
 public class Academias extends Controller {
 	
+	@Before(only = {"salvar", "form"})
+	static void acessoAdm() {
+		Status status = Seguranca.retornaStatus();
+		
+	    if (session.get("Status") != null) {
+	        if (status != Status.ADMINISTRADOR) {
+	            flash.error("Função restrita apenas para administradores");
+	            Login.abrirPagina(status, Long.parseLong(session.get("idConta")));
+	        }
+	    }
+	}
+	
 	public static void form() {
 		render();
 	}
@@ -25,13 +37,16 @@ public class Academias extends Controller {
 		
 		String mensagem = "Academia cadastrada com sucesso!";
 		
-		if(a.id != null) {
-			mensagem = "Dados da Academia editados com sucesso!";
+		if(a.id != null) mensagem = "Dados da Academia editados com sucesso!";
+		
+		if(Validacao.validarAcademia(a)) {
+			a.save();
+			flash.success(mensagem);
+			listar();
+		} else {
+			form();
 		}
 		
-		a.save();
-		flash.success(mensagem);
-		listar();
 	}
 	
 	public static void listar() {
@@ -52,9 +67,15 @@ public class Academias extends Controller {
 	
 	public static void remover(Long id) {
 		Academia a = Academia.findById(id);
-		a.delete();
-		flash.success("Academia removida com sucesso!");
-		listar();
+		
+		if(Validacao.validarRemocaoAcademia(a)) {
+			a.delete();
+			flash.success("Academia removida com sucesso!");
+			listar();			
+		} else {
+			listar();
+		}
+		
 	}
 	
 	public static void editar(Long id) {

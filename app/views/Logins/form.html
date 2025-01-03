@@ -1,10 +1,6 @@
 #{extends 'main.html' /}
-#{if cliente}
-	#{set title:'Edição de Cliente' /}
-#{/if}
-#{else}
-	#{set title:'Cadastro de Cliente' /}
-#{/else}
+#{set title:'Cadastro de conta' /}
+
 <div class="w-100 h-100 d-flex">
 	<form action="@{Logins.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
 		
