@@ -1,64 +1,60 @@
 #{extends 'main.html' /}
-#{set title:'Cadastro de personais na academia' /}
+#{set title:'Personais da academia' /}
 
-<div class=" h-100 m-auto col-10" >
-	<h1 class="text-center my-4" >Personais disponíveis</h1>
-	
-	<table class="table mt-4 mb-4">
-		<thead class="table-light">
-			<tr>
-				<th>Nome</th>
-				<th>Contato</th>
-				<th>CPF</th>
-				<th>Ações</th>
-			</tr>
-		</thead>
-		<tbody>
-			#{list items: personais, as:'p'}
-				<tr>
-					<td>${p.nome}</td>
-					<td>${p.contato}</td>
-					<td>${p.cpf}</td>
-					<td class="text-center">
-						<a href="@{Academias.adicionarPersonal(p.id, academia.id)}" class="btn btn-primary btn-sm w-100">
-							Adicionar
-						</a>
-					</td>
-				</tr>
-			#{/list}
-			
-		</tbody>
-	</table>
-	
-	<h1 class="text-center my-4" >Personais contratados</h1>
-	
-	<div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
-		#{list items:academia.personais, as:'per'}
-		  <div class="col">
-		    <div class="card h-100">
-		      <div class="card-body">
-		        <h5 class="card-title">${per.nome}</h5>
-		        <p class="card-text">Contato: ${per.contato}</p>
-		        <div class="card-footer">
-        			<a href="@{Academias.removerPersonal(academia.id, per.id)}" class="btn btn-dark w-100 rounded-4">Remover</a>
-      			</div>
-		      </div>
-		    </div>
-		  </div>
-		#{/list}
-	</div>
-		#{else}
-			
-			<ul class="list-group mb-4">
-			  <li class="list-group-item text-center">A academia não possui nenhum personal, escolha um na lista para ser adicionado</li>
-			</ul>
-		#{/else}
-	
-	<div class="row w-100 m-auto">
-		<div class="col">
-			<a href="@{Academias.listar}" class="w-100 btn btn-outline-primary mb-4 rounded-4">Escolher outra academia</a>
-		</div>
-	</div>
+<div class="container-app">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Academias</p>
+            <h1>Equipe de personais</h1>
+        </div>
+        <a href="@{Academias.listar}" class="btn btn-line"><i class="bi bi-arrow-left"></i> Escolher outra academia</a>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head"><h2>Personais disponíveis</h2></div>
+        <div class="table-responsive">
+            <table class="table data-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Contato</th>
+                        <th>CPF</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    #{list items: personais, as:'p'}
+                        <tr>
+                            <td data-th="Nome">${p.nome}</td>
+                            <td data-th="Contato">${p.contato}</td>
+                            <td data-th="CPF">${p.cpf}</td>
+                            <td class="text-center" data-th="Ações">
+                                <a href="@{Academias.adicionarPersonal(p.id, academia.id)}" class="btn btn-brand btn-sm">Adicionar</a>
+                            </td>
+                        </tr>
+                    #{/list}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="h6 text-uppercase text-muted mb-3" style="letter-spacing:.08em">Personais contratados</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-3 mb-4">
+        #{list items:academia.personais, as:'per'}
+            <div class="col">
+                <div class="panel h-100 mb-0">
+                    <div class="panel-body">
+                        <h3 class="h6 fw-semibold mb-1">${per.nome}</h3>
+                        <p class="text-muted mb-0"><i class="bi bi-telephone"></i> ${per.contato}</p>
+                    </div>
+                    <div class="panel-foot">
+                        <a href="@{Academias.removerPersonal(academia.id, per.id)}" class="btn btn-danger-soft btn-sm w-100">Remover</a>
+                    </div>
+                </div>
+            </div>
+        #{/list}
+    </div>
+    #{else}
+        <div class="panel"><div class="empty">A academia não possui nenhum personal. Escolha um na lista acima para adicionar.</div></div>
+    #{/else}
 </div>
-
-

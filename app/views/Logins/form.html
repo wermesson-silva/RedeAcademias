@@ -1,35 +1,35 @@
 #{extends 'main.html' /}
 #{set title:'Cadastro de conta' /}
 
-<div class="w-100 h-100 d-flex">
-	<form action="@{Logins.salvar}" class="p-4 w-100 m-auto form-container shadow-lg rounded-5">
-		
-		<h1 class="text-center mb-4">Crie a sua conta</h1>
-		<div class="row g-3 mb-2">
-			<div class="col">
-				<label for="floatingLogin" class="form-label">Login</label>
-				<input type="text" name="l.login" class="form-control" id="floatingLogin" placeholder="Informe um Login" required="required">
-			</div>
-		</div>
-		
-		<label class="form-label">Tipo</label>
-		<select name="l.tipo" class="form-select mb-2 py-2">
-			<option value="CLIENTE" >Cliente</option>
-			<option value="PERSONAL" >Personal</option>
-		</select>
-		<div class="row g-3 mb-2">
-			<div class="col">
-				<label for="floatingSenha" class="form-label">Senha</label>
-				<input type="password" name="l.senha" class="form-control" id="floatingSenha" placeholder="Informe uma senha" required="required">
-			</div>
-		</div>
-		<div class="row g-3 mb-3">
-			<div class="col">
-				<label for="floatingRepetir" class="form-label">Confirmar Senha</label>
-				<input type="password" name="l.confirmaSenha" class="form-control" id="floatingRepetir" placeholder="Repita a sua senha" required="required">
-			</div>
-		</div>
-
-		<input type="submit" value="Salvar" class="btn btn-dark w-100 py-2 mb-2 rounded-4">
-	</form>
+<div class="container-app container-auth">
+    <div class="auth-brand">
+        <img src="@{'public/images/logo.png'}" alt="Logo">
+        <h1>Crie a sua conta</h1>
+        <p>Escolha o tipo de acesso e defina sua senha.</p>
+    </div>
+    <div class="panel">
+        <form action="@{Logins.salvar}" class="panel-body">
+            <div class="mb-3">
+                <label for="floatingLogin" class="form-label">Login</label>
+                <input type="text" name="l.login" class="form-control" id="floatingLogin" placeholder="Informe um login" required="required">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tipo de conta</label>
+                <select name="l.tipo" class="form-select">
+                    <option value="CLIENTE">Cliente</option>
+                    <option value="PERSONAL">Personal</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="floatingSenha" class="form-label">Senha</label>
+                <input type="password" name="l.senha" class="form-control" id="floatingSenha" placeholder="Informe uma senha" required="required">
+            </div>
+            <div class="mb-4">
+                <label for="floatingRepetir" class="form-label">Confirmar senha</label>
+                <input type="password" name="l.confirmaSenha" class="form-control" id="floatingRepetir" placeholder="Repita a sua senha" required="required">
+            </div>
+            <input type="submit" value="Criar conta" class="btn btn-brand w-100 py-2">
+        </form>
+    </div>
+    <p class="text-center text-muted">Já possui conta? <a href="@{Logins.formLogar}" class="fw-semibold">Entrar</a></p>
 </div>
